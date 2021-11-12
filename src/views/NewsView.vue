@@ -96,7 +96,7 @@ name: "NewsView",
         })
       },
     addToReadingList(data){
-      this.getList.push(data)
+      this.getList.unshift(data)
         localStorage.setItem("reading_list", JSON.stringify(this.getList));
       this.$store.commit('setReadingList',this.getList);
 
