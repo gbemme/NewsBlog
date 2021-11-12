@@ -7,7 +7,7 @@
           <v-card  max-width="500" :class="{ 'on-hover': hover }"  :elevation="hover ? 4 : 0" class="card flex d-flex flex-column tw-mt-6 tw-pb-4">
             <v-img
                 :aspect-ratio="16/9"
-                :src="data.urlToImage || 'https://www.freeiconspng.com/uploads/news-icon-30.jpg'"
+                :src="data.image || 'https://www.freeiconspng.com/uploads/news-icon-30.jpg'"
             >
             </v-img>
             <v-card-subtitle>

@@ -20,7 +20,7 @@ name: "NewsView",
       field: [
         {
           title: 'Category',
-          type: 'category',
+          type: 'topic',
           selected: '',
           enable: false,
           filteredOn: [
@@ -32,14 +32,14 @@ name: "NewsView",
         },
         {
           title: 'Source',
-          type: 'sources',
+          type: 'q',
           selected: '',
           enable: false,
           filteredOn: [
-            {id: 1, name: "BBC",value:'bbc-news'},
-            {id: 2, name: "USA Today",value:'usa-today'},
-            {id: 3, name: "Google News",value:'google-news'},
-            {id: 4, name: "Al Jazeera English",value:'al-jazeera-english'}]
+            {id: 1, name: "BBC",value:"bbc"},
+            {id: 2, name: "USA Today",value:'usa'},
+            {id: 3, name: "Google News",value:'google'},
+            {id: 4, name: "Al Jazeera English",value:'aljazeera'}]
         },
         {
           title: 'Country',
@@ -47,8 +47,8 @@ name: "NewsView",
           selected: '',
           enable: false,
           filteredOn: [
-            {id: 1, name: "Nigeria",value:'ng'},
-            {id: 2, name: "South Africa",value:'za'},
+            {id: 1, name: "Germany",value:'de'},
+            {id: 2, name: "China",value:'cn'},
             {id: 3, name: "United State",value:'us'},
             {id: 4, name: "Canada",value:'ca'},
           ],
@@ -56,7 +56,7 @@ name: "NewsView",
 
       ],
       queryKey:'country',
-      queryValue:'ng',
+      queryValue:'us',
       readingList:[]
 
     }
@@ -86,7 +86,11 @@ name: "NewsView",
 
     },
       getAllNews(){
-        axios.get(`https://newsapi.org/v2/top-headlines?${this.queryKey}=${this.queryValue}&pageSize=5&apiKey=a9fe214d6252449c98e64b7ce6e800cd`)
+        // https://gnews.io/api/v4/top-headlines?${this.queryKey}=${this.queryValue}&token=46c7190991601eebc43c10b3a9106653&maz=5
+
+
+        // axios.get(`https://newsapi.org/v2/top-headlines?${this.queryKey}=${this.queryValue}&pageSize=5&apiKey=a9fe214d6252449c98e64b7ce6e800cd`)
+        axios.get(`https://gnews.io/api/v4/top-headlines?${this.queryKey}=${this.queryValue}&token=46c7190991601eebc43c10b3a9106653&max=5&lang=en`)
         .then(res=>{
           console.log(res)
           this.newsArray = res.data.articles
