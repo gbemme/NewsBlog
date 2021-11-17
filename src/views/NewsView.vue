@@ -1,7 +1,19 @@
 <template>
 <div class="tw-mb-8">
   <NewsHeader @selected="selectedArray" :field="field"/>
-  <NewsCard @add="addToReadingList" :newsArray="newsArray"/>
+  <div class="tw-flex tw-justify-center tw-my-16 " style="height: 50vh" v-if="loading">
+    <v-progress-circular
+        indeterminate
+        color="primary"
+    ></v-progress-circular>
+  </div>
+  <div class="tw-flex tw-mt-16 tw-justify-center tw-text-center " v-else-if="!loading && !newsArray.length">
+    <h6>No news available for this search</h6>
+  </div>
+  <div v-else>
+    <NewsCard @add="addToReadingList" :newsArray="newsArray"/>
+
+  </div>
   <ReadingList :readingList="readingList"/>
 </div>
 </template>
@@ -57,7 +69,8 @@ name: "NewsView",
       ],
       queryKey:'country',
       queryValue:'us',
-      readingList:[]
+      readingList:[],
+      loading:false
 
     }
   },
@@ -86,6 +99,7 @@ name: "NewsView",
 
     },
       getAllNews(){
+      this.loading = true
         // https://gnews.io/api/v4/top-headlines?${this.queryKey}=${this.queryValue}&token=46c7190991601eebc43c10b3a9106653&maz=5
 
 
@@ -98,6 +112,7 @@ name: "NewsView",
         .catch(err=>{
           console.log(err)
         })
+        .finally(()=>this.loading=false)
       },
     addToReadingList(data){
       this.getList.unshift(data)
